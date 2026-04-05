@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi Video Player — Manual</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: #111;
+    color: #e0e0e0;
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, #FF6D00, #FF8F00);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  /* Nav */
+  .nav {
+    background: #1a1a1a;
+    padding: 12px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #333;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .nav a {
+    color: #FF8F00;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .nav a:hover { text-decoration: underline; }
+
+  /* Container */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 64px;
+  }
+  .section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FF8F00;
+    border-bottom: 2px solid #FF6D00;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+  .section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin: 24px 0 8px;
+  }
+  .section p {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 12px;
+  }
+
+  /* Screenshot */
+  .screenshot-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+  }
+  .screenshot-wrap img {
+    width: 260px;
+    border-radius: 16px;
+    border: 1px solid #333;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+
+  /* Feature list */
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+  .feature-list li {
+    font-size: 14px;
+    color: #ccc;
+    padding: 8px 0 8px 20px;
+    border-bottom: 1px solid #222;
+    position: relative;
+  }
+  .feature-list li::before {
+    content: '▸';
+    color: #FF6D00;
+    position: absolute;
+    left: 0;
+  }
+  .feature-list li:last-child { border-bottom: none; }
+
+  .label {
+    display: inline-block;
+    background: #FF6D00;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 6px;
+  }
+
+  /* Grid layout visual */
+  .grid-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  .grid-table th {
+    background: #222;
+    color: #FF8F00;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .grid-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #222;
+    color: #ccc;
+  }
+  .grid-table tr:last-child td { border-bottom: none; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: #555;
+    border-top: 1px solid #222;
+  }
+  footer a { color: #FF8F00; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Multi Video Player</h1>
+  <p>User Manual — Watch up to 6 videos simultaneously</p>
+</div>
+
+<nav class="nav">
+  <a href="#home">Home Screen</a>
+  <a href="#grid">Grid Layout</a>
+  <a href="#filepicker">File Picker</a>
+  <a href="#playback">Playback</a>
+  <a href="#multivideo">Multi-Video</a>
+  <a href="#settings">Settings</a>
+</nav>
+
+<div class="container">
+
+  <!-- Home Screen -->
+  <div class="section" id="home">
+    <h2>Home Screen</h2>
+    <p>The home screen is displayed when no videos are loaded. Tap <strong>ADD VIDEO</strong> or the <strong>+</strong> icon in the toolbar to open the file picker.</p>
+
+    <div class="screenshot-wrap">
+      <img src="images/Manual_Screenshot_top.png" alt="Home Screen">
+    </div>
+
+    <h3>Toolbar</h3>
+    <ul class="feature-list">
+      <li><span class="label">Grid Selector</span>Tap the grid label (e.g. "1×1 - Single") in the top-left to choose a layout. Up to 6 videos can be played simultaneously.</li>
+      <li><span class="label">FD Status</span>Displays the current app health status: <strong>Healthy</strong> / <strong>Caution</strong> / <strong>Warning</strong>. This reflects the number of open file descriptors. If it shows Warning, consider closing some videos.</li>
+      <li><span class="label">+</span>Opens the file picker screen.</li>
+      <li><span class="label">Rotate</span>Toggles the screen orientation between portrait and landscape.</li>
+      <li><span class="label">☰</span>Opens the menu (Settings / Manual / About).</li>
+    </ul>
+  </div>
+
+  <!-- Grid Layout -->
+  <div class="section" id="grid">
+    <h2>Grid Layout</h2>
+    <p>Tap the grid label in the top-left corner to open the layout selector. Choose from 8 layouts to display up to 6 videos at once.</p>
+
+    <div class="screenshot-wrap">
+      <img src="images/Manual_Screenshot_grid.png" alt="Grid Layout Selector">
+    </div>
+
+    <table class="grid-table">
+      <tr><th>Layout</th><th>Description</th><th>Max Videos</th></tr>
+      <tr><td>1×1 - Single</td><td>Full-screen single video</td><td>1</td></tr>
+      <tr><td>1×2 - Side by Side</td><td>2 videos side by side</td><td>2</td></tr>
+      <tr><td>1×3 - Triple</td><td>3 videos in a row</td><td>3</td></tr>
+      <tr><td>2×1 - Top / Bottom</td><td>2 videos stacked vertically</td><td>2</td></tr>
+      <tr><td>2×2 - Quad</td><td>4 videos in a 2×2 grid</td><td>4</td></tr>
+      <tr><td>2×3 - Six Grid</td><td>6 videos in a 2×3 grid</td><td>6</td></tr>
+      <tr><td>3×1 - Triple Vertical</td><td>3 videos stacked vertically</td><td>3</td></tr>
+      <tr><td>3×2 - Six Grid</td><td>6 videos in a 3×2 grid</td><td>6</td></tr>
+    </table>
+  </div>
+
+  <!-- File Picker -->
+  <div class="section" id="filepicker">
+    <h2>File Picker</h2>
+    <p>Browse and select videos from your device storage or connected USB drive. Internal and USB videos are displayed together in a single list.</p>
+
+    <div class="screenshot-wrap">
+      <img src="images/Manual_Screenshot_filepicker.png" alt="File Picker">
+    </div>
+
+    <h3>Toolbar</h3>
+    <ul class="feature-list">
+      <li><span class="label">✕</span>Close the file picker and return to the home screen.</li>
+      <li><span class="label">RELOAD</span>Re-scan and refresh the video file list.</li>
+      <li><span class="label">Sort</span>Sort the list by Name, Type, Size, or Date Modified. Tap the sort direction to toggle ASC / DESC.</li>
+    </ul>
+
+    <h3>Video List</h3>
+    <ul class="feature-list">
+      <li>Each item displays a thumbnail, file name, and a badge showing its source: <strong>Internal</strong> or <strong>USB</strong>.</li>
+      <li>Tap a video to select it. Multiple selections are supported.</li>
+    </ul>
+
+    <h3>Bottom Bar</h3>
+    <ul class="feature-list">
+      <li><span class="label">Internal / USB / Total</span>Shows the number of videos found in each source.</li>
+      <li><span class="label">CANCEL</span>Close the file picker without adding videos.</li>
+      <li><span class="label">CLEAR</span>Deselect all selected videos.</li>
+      <li><span class="label">ADD FILES</span>Add the selected videos to the current grid and start playback.</li>
+    </ul>
+  </div>
+
+  <!-- Playback -->
+  <div class="section" id="playback">
+    <h2>Playback Controls</h2>
+    <p>Tap on a playing video to show the overlay controls. The overlay automatically hides after 2 seconds.</p>
+
+    <div class="screenshot-wrap">
+      <img src="images/Manual_Screenshot_play1x1.png" alt="Playback Controls">
+    </div>
+
+    <h3>Top Bar</h3>
+    <ul class="feature-list">
+      <li><span class="label">File Name</span>Displays the currently playing file name.</li>
+      <li><span class="label">✕</span>Close this video. If all videos are closed, the app returns to the home screen.</li>
+    </ul>
+
+    <h3>Playback Buttons</h3>
+    <ul class="feature-list">
+      <li><span class="label">|◀</span>Play the previous video in the list.</li>
+      <li><span class="label">▶ / ❚❚</span>Play or pause the current video.</li>
+      <li><span class="label">▶|</span>Play the next video in the list.</li>
+    </ul>
+
+    <h3>Bottom Controls</h3>
+    <ul class="feature-list">
+      <li><span class="label">×1</span>Playback speed selector (×0.25 / ×0.5 / ×1 / ×1.5 / ×2).</li>
+      <li><span class="label">🔊</span>Toggle mute on/off for this video.</li>
+      <li><span class="label">♥</span>Add or remove the current video from your favorites.</li>
+      <li><span class="label">Fav Shuffle</span>Replace this slot with a random video from your favorites.</li>
+      <li><span class="label">Shuffle</span>Replace this slot with a random video from all available videos (internal + USB).</li>
+      <li><span class="label">Rotate</span>Rotate the video 90° clockwise.</li>
+      <li><span class="label">Resize</span>Cycle through display modes: Fit / Fill / Zoom.</li>
+    </ul>
+  </div>
+
+  <!-- Multi-Video -->
+  <div class="section" id="multivideo">
+    <h2>Multi-Video Playback</h2>
+    <p>When multiple videos are playing, swipe up or down on the video area to show the global controls.</p>
+
+    <div class="screenshot-wrap">
+      <img src="images/Manual_Screenshot_play2x3.png" alt="Multi-Video Playback">
+    </div>
+
+    <h3>Toolbar (shown on swipe)</h3>
+    <ul class="feature-list">
+      <li><span class="label">Grid Selector</span>Change the grid layout while videos are playing.</li>
+      <li><span class="label">FD Status</span>Displays current app health. If it shows <strong>Warning</strong>, consider reducing the number of active videos.</li>
+      <li><span class="label">+</span>Add more videos to available slots.</li>
+      <li><span class="label">Rotate</span>Toggle screen orientation.</li>
+      <li><span class="label">☰</span>Open the menu.</li>
+    </ul>
+
+    <h3>Bottom Controls (shown on swipe)</h3>
+    <ul class="feature-list">
+      <li><span class="label">❚❚ PAUSE ALL</span>Pause all currently playing videos.</li>
+      <li><span class="label">▶ PLAY ALL</span>Resume playback of all videos.</li>
+      <li><span class="label">🗑 CLEAR ALL</span>Stop and remove all videos. A confirmation dialog will appear.</li>
+    </ul>
+  </div>
+
+  <!-- Settings -->
+  <div class="section" id="settings">
+    <h2>Settings</h2>
+    <p>Open Settings from the <strong>☰</strong> menu in the top-right corner.</p>
+
+    <div class="screenshot-wrap">
+      <img src="images/Manual_Screenshot_settings.png" alt="Settings">
+    </div>
+
+    <h3>Search Folders</h3>
+    <ul class="feature-list">
+      <li><span class="label">Download</span>Include the Download folder when scanning for videos.</li>
+      <li><span class="label">Movies</span>Include the Movies folder when scanning for videos.</li>
+    </ul>
+
+    <h3>Search Files</h3>
+    <ul class="feature-list">
+      <li><span class="label">Show Thumbnails</span>Enable or disable thumbnail generation in the file picker. Turn this OFF on low-end devices if loading is slow.</li>
+      <li><span class="label">Exclude Hidden Files</span>Hide files whose names start with a dot (.) from the file picker.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 MJGA Apps — <a href="https://play.google.com/store/apps/details?id=com.mjga.multivideoplayer">Google Play</a></p>
+</footer>
+
+</body>
+</html>
